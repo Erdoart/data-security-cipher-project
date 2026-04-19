@@ -24,12 +24,12 @@ def running_key_encrypt(plaintext: str, key_text: str) -> str:
     ciphertext=""
 
     for p, k in zip(pt, key):
-        p_val = char_to_num(p)
-        k_val = char_to_num(k)
+        p_val = _char_to_num(p)
+        k_val = _char_to_num(k)
 
         c_val = (p_val + k_val) % 26
 
-        ciphertext += num_to_char(c_val)
+        ciphertext += _num_to_char(c_val)
 
     return ciphertext
 
@@ -46,11 +46,11 @@ def running_key_decrypt(ciphertext: str, key_text: str) -> str:
     plaintext = ""
 
     for c, k in zip(ct, key):
-        c_val = char_to_num(c)
-        k_val = char_to_num(k)
+        c_val = _char_to_num(c)
+        k_val = _char_to_num(k)
 
         p_val = (c_val - k_val) % 26
 
-        plaintext += num_to_char(p_val)
+        plaintext += _num_to_char(p_val)
         
     return plaintext
