@@ -2,10 +2,8 @@
 import sys
 import os
 
-# Shto folderin cipher në path
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'cipher'))
 
-# Importo me emrat e saktë të file-ve
 from runningkeycipher import running_key_encrypt, running_key_decrypt
 from transpositionCipher import double_transposition_encrypt, double_transposition_decrypt
 
@@ -18,31 +16,50 @@ def main():
 
     if choice == "1":
         print("\nRunning Key Cipher")
-        plaintext = input("Shkruaj plaintext: ")
+
+        print("\nZgjedh 1 per Encrypt")
+        print("\nZgjedh 2 per Decrypt")
+        zgj=input("Zgjedhja: ")
+        
         key = input("Shkruaj key (tekst i gjate): ")
 
         try:
-            encrypted = running_key_encrypt(plaintext, key)
-            decrypted = running_key_decrypt(encrypted, key)
-
-            print("Encrypted:", encrypted)
-            print("Decrypted:", decrypted)
+             if zgj=="1":
+                plaintext=input("sheno plaintext: ")
+                result=running_key_encrypt(plaintext, key)
+                print("encrypted: ",result)
+                 
+             elif zgj=="2":
+                ciphertext=input("sheno ciphertext: ")    
+                result=running_key_decrypt(ciphertext, key)
+                print("Decrypted:", result)
+             else:
+                 print("zgjedhje e pavlefshme")
         except ValueError as e:
             print("Gabim:", e)
 
     elif choice == "2":
         print("\nDouble Transposition Cipher")
-        text = input("Shkruaj tekstin: ")
+        
+        print("\nZgjedh 1 per Encrypt")
+        print("\nZgjedh 2 per Decrypt")
+        zgj=input("Zgjedhja: ")
+        
         key1 = input("Shkruaj key 1: ")
         key2 = input("Shkruaj key 2: ")
 
         try:
-            encrypted = double_transposition_encrypt(text, key1, key2)
-            decrypted = double_transposition_decrypt(encrypted, key1, key2)
-
-            print("\nRezultatet:")
-            print("Encrypted:", encrypted)
-            print("Decrypted:", decrypted)
+            if zgj=="1":
+                text=input("shkruaj plaintext: ")
+                result = double_transposition_encrypt(text, key1, key2)
+                print("Encrypted:", result)
+            elif zgj=="2":
+                text=input("shkruaj ciphertext: ")
+                result = double_transposition_decrypt(text, key1, key2)
+                print("Decrypted:", result)
+            else:
+                print("zgjedhje e pavlefshme")
+                
 
         except ValueError as e:
             print("Gabim:", e)
