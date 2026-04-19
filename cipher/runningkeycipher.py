@@ -20,7 +20,18 @@ def running_key_encrypt(plaintext: str, key_text: str) -> str:
         raise ValueError("Key text duhet të jetë të paktën sa plaintext.")
 
     key = key[:len(pt)]
-    return "".join(_num_to_char(_char_to_num(p) + _char_to_num(k)) for p, k in zip(pt, key))
+    
+    ciphertext=""
+
+    for p, k in zip(pt, key):
+        p_val = char_to_num(p)
+        k_val = char_to_num(k)
+
+        c_val = (p_val + k_val) % 26
+
+        ciphertext += num_to_char(c_val)
+
+    return ciphertext
 
 def running_key_decrypt(ciphertext: str, key_text: str) -> str:
     ct = _letters_only_upper(ciphertext)
@@ -32,4 +43,14 @@ def running_key_decrypt(ciphertext: str, key_text: str) -> str:
         raise ValueError("Key text duhet të jetë të paktën sa ciphertext.")
 
     key = key[:len(ct)]
-    return "".join(_num_to_char(_char_to_num(c) - _char_to_num(k)) for c, k in zip(ct, key))
+    plaintext = ""
+
+    for c, k in zip(ct, key):
+        c_val = char_to_num(c)
+        k_val = char_to_num(k)
+
+        p_val = (c_val - k_val) % 26
+
+        plaintext += num_to_char(p_val)
+        
+    return plaintext
